@@ -8,9 +8,10 @@
   <style>
     :root {
       --text: #111111;
-      --muted: #5f5f5f;
-      --radius: 24px;
-      --shadow: 0 25px 70px rgba(0,0,0,0.12);
+      --muted: rgba(17,17,17,0.62);
+      --radius: 26px;
+      --shadow: 0 28px 80px rgba(0,0,0,0.14);
+      --border: rgba(0,0,0,0.10);
     }
 
     * { box-sizing: border-box; }
@@ -23,15 +24,13 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color: var(--text);
 
-      /* warm 90s pastel background */
       background:
-        radial-gradient(700px 520px at 15% 15%, rgba(255, 214, 165, .55), transparent 60%),
-        radial-gradient(600px 480px at 85% 25%, rgba(255, 180, 200, .45), transparent 60%),
-        radial-gradient(650px 540px at 45% 85%, rgba(190, 220, 255, .45), transparent 60%),
-        linear-gradient(180deg, #fff7ef, #ffffff);
+        radial-gradient(900px 650px at 12% 18%, rgba(255, 207, 150, .55), transparent 62%),
+        radial-gradient(780px 640px at 88% 22%, rgba(255, 175, 205, .42), transparent 60%),
+        radial-gradient(820px 680px at 46% 92%, rgba(185, 220, 255, .45), transparent 62%),
+        linear-gradient(180deg, #fff2e7, #ffffff);
     }
 
-    /* subtle film grain */
     body::before {
       content: "";
       position: fixed;
@@ -39,39 +38,39 @@
       pointer-events: none;
       opacity: 0.10;
       mix-blend-mode: multiply;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
     }
 
     .wrap {
-      width: min(520px, 92vw);
+      width: min(540px, 92vw);
       padding: 22px;
+      position: relative;
+      z-index: 1;
     }
 
     .card {
       position: relative;
       background: rgba(255,255,255,0.78);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px 24px;
+      padding: 30px 26px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       overflow: hidden;
     }
 
     .step {
       display: none;
-      animation: fadeUp 500ms ease forwards;
+      animation: fadeUp 520ms ease forwards;
     }
-
-    .step.active {
-      display: block;
-    }
+    .step.active { display: block; }
 
     h1 {
       margin: 0 0 10px 0;
-      font-size: clamp(28px, 4vw, 34px);
+      font-size: clamp(28px, 4vw, 36px);
       letter-spacing: -0.02em;
-      line-height: 1.15;
+      line-height: 1.12;
     }
 
     p {
@@ -90,7 +89,7 @@
 
     button {
       appearance: none;
-      border: 1px solid rgba(0,0,0,0.15);
+      border: 1px solid rgba(0,0,0,0.14);
       background: white;
       color: var(--text);
       padding: 12px 16px;
@@ -98,24 +97,26 @@
       font-weight: 600;
       cursor: pointer;
       transition: transform 120ms ease, box-shadow 120ms ease;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.10);
     }
-
     button:hover { transform: translateY(-1px); }
     button:active { transform: translateY(1px); }
 
     .center { text-align: center; }
 
     .big {
-      font-size: clamp(30px, 4.4vw, 40px);
+      font-size: clamp(30px, 4.6vw, 42px);
       letter-spacing: -0.03em;
-      line-height: 1.08;
+      line-height: 1.06;
       margin-bottom: 12px;
     }
 
-    .heart {
-      display: inline-block;
-      transform: translateY(2px);
+    .heart { display: inline-block; transform: translateY(2px); }
+
+    .tag {
+      margin-top: 10px;
+      font-size: 13px;
+      color: rgba(17,17,17,0.42);
     }
 
     canvas {
@@ -125,7 +126,6 @@
       opacity: 0;
       transition: opacity 250ms ease;
     }
-
     canvas.on { opacity: 1; }
 
     @keyframes fadeUp {
@@ -139,7 +139,6 @@
 
   <div class="wrap">
     <div class="card">
-
       <canvas id="confetti"></canvas>
 
       <!-- STEP 1 -->
@@ -154,18 +153,18 @@
       <!-- STEP 2 -->
       <div class="step" id="s2">
         <h1>So I made this instead.</h1>
-        <p>Because this felt more right.</p>
+        <p>Because some things deserve a little extra thought.</p>
         <div class="actions">
-          <button onclick="next()">Okay</button>
+          <button onclick="next()">Continue</button>
         </div>
       </div>
 
       <!-- STEP 3 -->
       <div class="step center" id="s3">
         <div class="big">
-          Will you be my Valentine? <span class="heart">❤️</span>
+          Will you be my Valentine? <span class="heart">💚</span>
         </div>
-        <p>No pressure. But also… yes.</p>
+        <p>I’d like that.</p>
         <div class="actions" style="justify-content:center">
           <button onclick="yes()">Yes</button>
           <button onclick="yes()">Obviously yes</button>
@@ -175,12 +174,11 @@
       <!-- STEP 4 -->
       <div class="step center" id="s4">
         <div class="big">Good.</div>
-        <p style="font-size:17px; color: rgba(0,0,0,0.65); margin-bottom: 10px;">
-          Because I already got you flowers.
+        <p style="font-size:17px; color: rgba(0,0,0,0.68); margin-bottom: 10px;">
+          Go to your front door.
         </p>
-        <p>(turn around.)</p>
+        <p>I have something for you.</p>
       </div>
-
     </div>
   </div>
 
@@ -199,7 +197,6 @@
       show(Math.min(idx+1, steps.length-1));
     }
 
-    /* confetti */
     const canvas = document.getElementById("confetti");
     const ctx = canvas.getContext("2d");
     let pieces = [];
@@ -220,7 +217,7 @@
       resize();
       pieces = Array.from({length:140},()=>({
         x: canvas.parentElement.clientWidth/2,
-        y: canvas.parentElement.clientHeight*0.3,
+        y: canvas.parentElement.clientHeight*0.28,
         vx:(Math.random()-0.5)*10,
         vy:(Math.random()-1.2)*12,
         g:0.35,
@@ -236,7 +233,6 @@
 
     function tick(){
       ctx.clearRect(0,0,canvas.width,canvas.height);
-      const w = canvas.parentElement.clientWidth;
       const h = canvas.parentElement.clientHeight;
 
       pieces.forEach(p=>{
@@ -250,13 +246,13 @@
         ctx.globalAlpha=p.a;
         ctx.translate(p.x,p.y);
         ctx.rotate(p.rot);
-        const s=40+Math.floor(Math.random()*40);
+        const s=50+Math.floor(Math.random()*40);
         ctx.fillStyle=`rgb(${s},${s},${s})`;
         ctx.fillRect(-p.r,-p.r,p.r*2,p.r*2);
         ctx.restore();
       });
 
-      pieces = pieces.filter(p=>p.a>0.08 && p.y<h+40);
+      pieces = pieces.filter(p=>p.a>0.08 && p.y<h+50);
       if(pieces.length) requestAnimationFrame(tick);
     }
 
