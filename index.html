@@ -113,12 +113,6 @@
 
     .heart { display: inline-block; transform: translateY(2px); }
 
-    .tag {
-      margin-top: 10px;
-      font-size: 13px;
-      color: rgba(17,17,17,0.42);
-    }
-
     canvas {
       position: absolute;
       inset: 0;
@@ -153,7 +147,7 @@
       <!-- STEP 2 -->
       <div class="step" id="s2">
         <h1>So I made this instead.</h1>
-        <p>Because some things deserve a little extra thought.</p>
+        <p>It felt like the right way to ask.</p>
         <div class="actions">
           <button onclick="next()">Continue</button>
         </div>
@@ -210,7 +204,6 @@
       canvas.style.height = rect.height + "px";
       ctx.setTransform(dpr,0,0,dpr,0,0);
     }
-
     window.addEventListener("resize", resize);
 
     function burst(){
